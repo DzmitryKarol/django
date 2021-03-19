@@ -1,6 +1,8 @@
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import pytest
+import os
 
 
 username = 'testuser'
@@ -20,6 +22,12 @@ def browser():
     driver.implicitly_wait(10)
     yield driver
     driver.quit()
+
+@pytest.hookimpl(tryfirst=True)
+def pytest_configure(config):
+    if not os.path.exists('reports'):
+        os.makedirs('reports')
+    config.option.htmlpath = 'reports/'+ datetime.now().strftime("%d-%m-%Y %H-%M-%S")+".html"
 
 
 #
