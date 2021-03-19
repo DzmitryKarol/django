@@ -1,7 +1,7 @@
 import psycopg2
 
 def test(username):
-    db = psycopg2.connect(host="localhost", user="postgres", password="postgres", database='postgres')
+    db = psycopg2.connect(host="172.20.0.2", user="postgres", password="postgres", database='postgres')
     cursor = db.cursor()
     query = f"select id from auth_user where username = '{username}'"
     cursor.execute(query)
@@ -13,7 +13,7 @@ def test(username):
 
 class DataBase:
     def check_user_in_db(self, username):
-        db = psycopg2.connect(host="localhost", user="postgres", password="postgres", database='postgres')
+        db = psycopg2.connect(host="172.20.0.2", user="postgres", password="postgres", database='postgres')
         cursor = db.cursor()
         query = "select username, id from auth_user"
         perm = 'select user_id, count(*) FROM public.auth_user_user_permissions group by user_id'
@@ -36,7 +36,7 @@ class DataBase:
         db.close()
 
     def delete_user(self, username):
-        db = psycopg2.connect(host="localhost", user="postgres", password="postgres", database='postgres')
+        db = psycopg2.connect(host="172.20.0.2", user="postgres", password="postgres", database='postgres')
         cursor = db.cursor()
         find_user = f"select id from auth_user where username = '{username}'"
         cursor.execute(find_user)
